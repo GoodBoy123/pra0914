@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backColor"
+    tools:context="yxy.pra0914.ChooseProfession">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/backWhite">
+        <TextView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="行业"
+            android:textSize="18sp"
+            android:textColor="@color/textBlack" />
+    </android.support.v7.widget.Toolbar>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backWhite"
+        android:layout_marginTop="10dp"
+        android:divider="@color/lineColor"
+        android:dividerHeight="0.5dp" >
+    </ListView>
+</LinearLayout>
