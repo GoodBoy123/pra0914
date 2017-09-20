@@ -1,11 +1,13 @@
 package yxy.pra0914;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 import yxy.pra0914.adapter.MyBaseAdapter;
 import yxy.pra0914.base.BaseActivity;
@@ -23,10 +25,11 @@ public class ChooseProfession extends BaseActivity {
                 "贸易-物流","生物-医疗","能源-化工","政府机构","服务业","其他行业"};
         //接收从InfoEdite传递的数据
         Intent intent = getIntent();
-        String profession = "其他行业";
+        String profession = null;
         if (intent != null) {
             profession = intent.getStringExtra("profession");
         }
+
         MyBaseAdapter mBaseAdapter = new MyBaseAdapter(getApplicationContext(),strings,profession);
         listView.setAdapter(mBaseAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -34,10 +37,18 @@ public class ChooseProfession extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent i=new Intent();
                 i.putExtra("profession", strings[position].toString());
-                setResult(5,i);
+                setResult(RESULT_OK,i);
                 finish();
             }
         });
+        TextView pro_back = (TextView) findViewById(R.id.pro_back);
+        pro_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               finish();
+            }
+        });
+
 
     }
 }

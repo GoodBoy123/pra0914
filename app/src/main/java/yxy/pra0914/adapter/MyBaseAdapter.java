@@ -47,15 +47,17 @@ public class MyBaseAdapter extends BaseAdapter {
             holder = new ViewHolder();
             holder.txv_profession = (TextView) convertView.findViewById(R.id.txv_profession);
             holder.txv_checked = (TextView) convertView.findViewById(R.id.txv_checked);
+
             convertView.setTag(holder);
         }    else {
             holder = (ViewHolder) convertView.getTag();
         }
         holder.txv_profession.setText(data[position]);
-        if(checkedStr.equals(data[position]))
+        if(checkedStr != null && checkedStr.equals( holder.txv_profession.getText().toString()))
         {
-            Log.v("color",data[position]);
             holder.txv_checked.setVisibility(View.VISIBLE);
+        }else{
+            holder.txv_checked.setVisibility(View.GONE);
         }
         return convertView;
 

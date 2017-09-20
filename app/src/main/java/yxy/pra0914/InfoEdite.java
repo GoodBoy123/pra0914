@@ -221,7 +221,6 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
                 pvCustomTime.show();
                 break;
             case R.id.rlt_profession:
-                profession.setText("其他行业");
                 String str = profession.getText().toString();
                 Intent intent = new Intent(InfoEdite.this,ChooseProfession.class);
                 intent.putExtra("profession", str);
@@ -246,15 +245,6 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
         layout_close.setBackgroundColor(getResources().getColor(
                 R.color.base_color_text_white));
 
-
-        if(layout_photo != null)
-        {
-            System.out.print("=====");
-            Log.v("====","1111111");
-        }else{
-            System.out.print("=====22");
-            Log.v("====","2222222");
-        }
         layout_photo.setOnClickListener(new View.OnClickListener() {
 
             @Override

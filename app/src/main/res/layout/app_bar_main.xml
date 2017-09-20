@@ -37,6 +37,7 @@
                 android:layout_gravity="center|center_vertical"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:maxWidth="150dp"
                 android:text="北京"
                 android:textSize="14sp"
                 android:visibility="visible" />

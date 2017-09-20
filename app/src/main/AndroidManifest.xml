@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".InfoEdite" />
-        <activity android:name=".ChooseProfession"></activity>
+        <activity android:name=".ChooseProfession" />
+        <activity android:name=".ChooseCity"></activity>
     </application>
 
 </manifest>

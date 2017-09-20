@@ -9,10 +9,12 @@
     tools:context="yxy.pra0914.ChooseProfession">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/pro_toolbar"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/backWhite">
         <TextView
+            android:id="@+id/pro_back"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/back"/>
