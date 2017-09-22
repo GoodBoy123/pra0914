@@ -1,6 +1,17 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+        release {
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
+
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
     defaultConfig {
@@ -24,13 +35,21 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+    //快速查阅对应分组的侧边栏
+    
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-
-    //快速查阅对应分组的侧边栏
     compile 'com.bigkoo:quicksidebar:1.0.3'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
+
+
+    //高德地图
+    compile 'com.amap.api:navi-3dmap:5.0.0'
+    compile 'com.amap.api:location:3.3.0'
+    compile 'com.amap.api:search:5.0.0'
+    testCompile 'junit:junit:4.12'
 }

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="127dp"
+    android:background="#0000"
+    >
+    <LinearLayout
+        android:layout_width="209dp"
+        android:layout_height="127dp"
+        android:orientation="vertical"
+        android:background="@drawable/inforwindow_bg">
+        <TextView
+            android:id="@+id/agent_name"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="11dp"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:textSize="14sp"
+            android:textColor="@color/black_text"/>
+        <TextView
+            android:id="@+id/agent_addr"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginTop="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="17dp"
+            android:singleLine="true"
+            android:textSize="12sp"
+            android:textColor="@color/black_text2"/>
+        <TextView
+            android:id="@+id/waitNum"
+            android:layout_marginLeft="14dp"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:textSize="12sp"
+            android:textColor="#1DA1F2"/>
+        <View
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="9dp"
+            android:background="#DFDFDF"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/comfirm"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="确   定"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp"
+                    android:textColor="@color/black_text"/>
+        </LinearLayout>
+    </LinearLayout>
+    <!-- 用来偏移inforwindow的位置-->
+    <TextView
+        android:layout_width="38dp"
+        android:layout_height="match_parent" />
+</LinearLayout>
+
+   <!-- 作者：Teprinciple
+    链接：http://www.jianshu.com/p/8365b40d3829
+    來源：简书
+    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。-->

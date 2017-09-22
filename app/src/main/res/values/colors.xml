@@ -22,4 +22,7 @@
     <color name="pickerview_wheelview_textcolor_center">#2a2a2a</color>
     <color name="pickerview_wheelview_textcolor_divider">#d5d5d5</color>
     <color name="pickerview_bgColor_default">#FFFFFFFF</color>
+
+    <color name="black_text">#333333</color>
+    <color name="black_text2">#666666</color>
 </resources>
