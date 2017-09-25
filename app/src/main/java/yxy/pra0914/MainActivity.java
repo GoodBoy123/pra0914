@@ -1,7 +1,6 @@
 package yxy.pra0914;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -9,10 +8,8 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioGroup;
+
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,14 +35,20 @@ import com.amap.api.services.geocoder.RegeocodeResult;
 import yxy.pra0914.MyView.CircleImageView;
 import yxy.pra0914.MyView.HomeToolbar;
 import yxy.pra0914.adapter.InfoWinAdapter;
-import yxy.pra0914.base.BaseActivity;
+
 import yxy.pra0914.base.BaseApplication;
 
 public class MainActivity extends CheckPermissionsActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener, AMap.OnMarkerClickListener,AMap.OnMapClickListener{
 
-    private TextView txt_city,start_place;
+    private TextView txt_city,start_place,goods_info;
+    private RelativeLayout choose_GoodsInf;
+    //城市
     private static final int REQUESTCODE_FINDCITY = 6;
+    //物品信息
+    private static final int REQUESTCODE_GOODSINFO = 7;
+    //收件人
+    private static final int REQUESTCODE_ENDINFO = 8;
 
     private MapView mapView;
     private AMap aMap;
@@ -54,9 +57,6 @@ public class MainActivity extends CheckPermissionsActivity
     private Marker newMarker;
     private GeocodeSearch geocodeSearch;
 
-    private EditText etInterval;
-    private EditText etHttpTimeout;
-    private TextView tvResult;
 
     private AMapLocationClient locationClient = null;
     private AMapLocationClientOption locationOption = null;
@@ -94,7 +94,11 @@ public class MainActivity extends CheckPermissionsActivity
         initView();
         //点击主页上方的城市，跳往选择城市
         txt_city.setOnClickListener(this);
+        //选择发件地
         start_place.setOnClickListener(this);
+        //选择物品信息
+        choose_GoodsInf.setOnClickListener(this);
+
 
         if(aMap == null)
         {
@@ -172,7 +176,9 @@ public class MainActivity extends CheckPermissionsActivity
     private void initView(){
         mapView = (MapView)findViewById(R.id.map);
         txt_city = (TextView)findViewById(R.id.txt_city);
+        goods_info = (TextView)findViewById(R.id.goods_info);
         start_place = (TextView)findViewById(R.id.start_place);
+        choose_GoodsInf = (RelativeLayout)findViewById(R.id.choose_GoodsInf);
     }
 
      /**
@@ -379,11 +385,16 @@ public class MainActivity extends CheckPermissionsActivity
 
     public void onClick(View view)
     {
+        Intent intent;
         switch (view.getId())
         {
             case R.id.txt_city:
-                Intent findCity = new Intent(MainActivity.this,ChooseCity.class);
-                startActivityForResult(findCity,REQUESTCODE_FINDCITY);
+                intent = new Intent(MainActivity.this,ChooseCity.class);
+                startActivityForResult(intent,REQUESTCODE_FINDCITY);
+                break;
+            case R.id.choose_GoodsInf:
+                intent = new Intent(MainActivity.this,GoodsInfo.class);
+                startActivityForResult(intent,REQUESTCODE_GOODSINFO);
                 break;
         }
     }
@@ -396,6 +407,12 @@ public class MainActivity extends CheckPermissionsActivity
                     if(data != null)
                     {
                         txt_city.setText(data.getExtras().get("city").toString());
+                    }
+                    break;
+                case REQUESTCODE_GOODSINFO:
+                    if(data != null && data.getExtras().get("goodsInfo") != null)
+                    {
+                        goods_info.setText(data.getExtras().get("goodsInfo").toString());
                     }
                     break;
             }

@@ -55,8 +55,8 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
     private Bitmap mBitmap;
     private File mFile;
 
-    private OptionsPickerView pvCustomOptions,pvCustomTime;
-    private ArrayList<CardBean> cardItem = new ArrayList<>();
+    private OptionsPickerView OptionsGender,OptionsAges;
+    private ArrayList<CardBean> genders = new ArrayList<>();
     private ArrayList<CardBean> ages = new ArrayList<>();
     private TextView gender,age,profession;
     private RelativeLayout rlt_profession;
@@ -77,7 +77,6 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
 
         //等数据加载完毕再初始化并显示Picker,以免还未加载完数据就显示,造成APP崩溃。
         getOptionData();
-        initCustomTimePicker();
         initCustomOptionPicker();
         gender = (TextView)findViewById(R.id.gender);
         age = (TextView)findViewById(R.id.age);
@@ -86,24 +85,51 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
         age.setOnClickListener(this);
         gender.setOnClickListener(this);
     }
-    private void initCustomTimePicker() {
 
+    private void initCustomOptionPicker() {//条件选择器初始化，自定义布局
         /**
          * @description
          *
          * 注意事项：
-         * 1.自定义布局中，id为 optionspicker 或者 timepicker 的布局以及其子控件必须要有，否则会报空指针.
+         * 自定义布局中，id为 optionspicker 或者 timepicker 的布局以及其子控件必须要有，否则会报空指针。
          * 具体可参考demo 里面的两个自定义layout布局。
-         * 2.因为系统Calendar的月份是从0-11的,所以如果是调用Calendar的set方法来设置时间,月份的范围也要是从0-11
-         * setRangDate方法控制起始终止时间(如果不设置范围，则使用默认时间1900-2100年，此段代码可注释)
          */
-        Calendar selectedDate = Calendar.getInstance();//系统当前时间
-        Calendar startDate = Calendar.getInstance();
-        startDate.set(2014, 1, 23);
-        Calendar endDate = Calendar.getInstance();
-        endDate.set(2027, 2, 28);
-        //时间选择器 ，自定义布局
-        pvCustomTime = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+        OptionsGender = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String tx = genders.get(options1).getPickerViewText();
+                gender.setText(tx);
+            }
+        })
+                .setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
+                    @Override
+                    public void customLayout(View v) {
+                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
+                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
+                        tvSubmit.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                OptionsGender.returnData();
+                                OptionsGender.dismiss();
+                            }
+                        });
+
+                        ivCancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                OptionsGender.dismiss();
+                            }
+                        });
+                    }
+                })
+                .isDialog(true)
+                .build();
+
+        OptionsGender.setPicker(genders);//添加数据
+
+
+        OptionsAges = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
@@ -120,14 +146,14 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
                         tvSubmit.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                pvCustomTime.returnData();
-                                pvCustomTime.dismiss();
+                                OptionsAges.returnData();
+                                OptionsAges.dismiss();
                             }
                         });
                         ivCancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                pvCustomTime.dismiss();
+                                OptionsAges.dismiss();
                             }
                         });
 
@@ -137,50 +163,8 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
                 .isDialog(true)
                 .build();
 
-        pvCustomTime.setPicker(ages);//添加数据
+        OptionsAges.setPicker(ages);//添加数据
 
-    }
-    private void initCustomOptionPicker() {//条件选择器初始化，自定义布局
-        /**
-         * @description
-         *
-         * 注意事项：
-         * 自定义布局中，id为 optionspicker 或者 timepicker 的布局以及其子控件必须要有，否则会报空指针。
-         * 具体可参考demo 里面的两个自定义layout布局。
-         */
-        pvCustomOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String tx = cardItem.get(options1).getPickerViewText();
-                gender.setText(tx);
-            }
-        })
-                .setLayoutRes(R.layout.pickerview_custom_options, new CustomListener() {
-                    @Override
-                    public void customLayout(View v) {
-                        final TextView tvSubmit = (TextView) v.findViewById(R.id.tv_finish);
-                        ImageView ivCancel = (ImageView) v.findViewById(R.id.iv_cancel);
-                        tvSubmit.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                pvCustomOptions.returnData();
-                                pvCustomOptions.dismiss();
-                            }
-                        });
-
-                        ivCancel.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                pvCustomOptions.dismiss();
-                            }
-                        });
-                    }
-                })
-                .isDialog(true)
-                .build();
-
-        pvCustomOptions.setPicker(cardItem);//添加数据
 
     }
     private void getOptionData() {
@@ -192,15 +176,15 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
         getCardData();
     }
     private void getCardData() {
-        cardItem.add(new CardBean(0, "男"));
-        cardItem.add(new CardBean(1, "女"));
+        genders.add(new CardBean(0, "男"));
+        genders.add(new CardBean(1, "女"));
 
         ages.add(new CardBean(0,"60后"));
-        ages.add(new CardBean(0,"70后"));
-        ages.add(new CardBean(0,"80后"));
-        ages.add(new CardBean(0,"90后"));
-        ages.add(new CardBean(0,"00后"));
-        ages.add(new CardBean(0,"10后"));
+        ages.add(new CardBean(1,"70后"));
+        ages.add(new CardBean(2,"80后"));
+        ages.add(new CardBean(3,"90后"));
+        ages.add(new CardBean(4,"00后"));
+        ages.add(new CardBean(5,"10后"));
     }
     @Override
     public void onClick(View v) {
@@ -215,10 +199,10 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
                 Toast.makeText(InfoEdite.this, "done", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.gender:
-                pvCustomOptions.show();
+                OptionsGender.show();
                 break;
             case R.id.age:
-                pvCustomTime.show();
+                OptionsAges.show();
                 break;
             case R.id.rlt_profession:
                 String str = profession.getText().toString();
