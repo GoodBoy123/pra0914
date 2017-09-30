@@ -69,7 +69,8 @@
         <activity android:name=".InfoEdite" />
         <activity android:name=".ChooseProfession" />
         <activity android:name=".ChooseCity" />
-        <activity android:name=".GoodsInfo"></activity>
+        <activity android:name=".GoodsInfo" />
+        <activity android:name=".ReceiverInfo"></activity>
     </application>
 
 </manifest>

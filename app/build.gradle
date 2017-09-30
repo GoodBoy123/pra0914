@@ -39,17 +39,16 @@ dependencies {
     //快速查阅对应分组的侧边栏
     
 
+    
+
+    //高德地图
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.bigkoo:quicksidebar:1.0.3'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta4'
     compile 'com.timehop.stickyheadersrecyclerview:library:0.4.3@aar'
-
-
-    //高德地图
     compile 'com.amap.api:navi-3dmap:5.0.0'
     compile 'com.amap.api:location:3.3.0'
     compile 'com.amap.api:search:5.0.0'
-    testCompile 'junit:junit:4.12'
-}
+    testCompile 'junit:junit:4.12'}

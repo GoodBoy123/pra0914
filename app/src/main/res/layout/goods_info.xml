@@ -281,23 +281,30 @@
                     android:textSize="14sp" />
 
                 <RelativeLayout
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:layout_width="match_parent"
                     android:layout_height="40dp">
 
                     <EditText
                         android:id="@+id/goods_name"
-                        android:focusable="false"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center_vertical|right"
                         android:paddingRight="70dp"
-                        android:text="无"
+                        android:background="@null"
+                        android:hint="无"
                         android:maxLines="1"
                         android:ellipsize="end"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
             </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="20dp"
+                android:background="@color/lineColor" />
             <LinearLayout
                 android:id="@+id/layout_weight"
                 android:layout_width="match_parent"

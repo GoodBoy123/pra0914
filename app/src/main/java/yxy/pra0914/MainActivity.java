@@ -2,6 +2,7 @@ package yxy.pra0914;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,14 +43,15 @@ import yxy.pra0914.base.BaseApplication;
 public class MainActivity extends CheckPermissionsActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener, AMap.OnMarkerClickListener,AMap.OnMapClickListener{
 
-    private TextView txt_city,start_place,goods_info;
+    private TextView txt_city,start_place,goods_info,receiverInfo,cost_line;
     private RelativeLayout choose_GoodsInf;
+    private LinearLayout cost;
     //城市
     private static final int REQUESTCODE_FINDCITY = 6;
     //物品信息
     private static final int REQUESTCODE_GOODSINFO = 7;
     //收件人
-    private static final int REQUESTCODE_ENDINFO = 8;
+    private static final int REQUESTCODE_RECEIVERINFO = 8;
 
     private MapView mapView;
     private AMap aMap;
@@ -94,8 +97,8 @@ public class MainActivity extends CheckPermissionsActivity
         initView();
         //点击主页上方的城市，跳往选择城市
         txt_city.setOnClickListener(this);
-        //选择发件地
-        start_place.setOnClickListener(this);
+        //选择收件人信息
+        receiverInfo.setOnClickListener(this);
         //选择物品信息
         choose_GoodsInf.setOnClickListener(this);
 
@@ -146,6 +149,7 @@ public class MainActivity extends CheckPermissionsActivity
         // 绑定marker拖拽事件
         aMap.setOnMarkerDragListener(markerDragListener);
 
+        //点击marker出现地点提示框
         adapter = new InfoWinAdapter();
         aMap.setInfoWindowAdapter(adapter);
         //初始化定位
@@ -178,7 +182,10 @@ public class MainActivity extends CheckPermissionsActivity
         txt_city = (TextView)findViewById(R.id.txt_city);
         goods_info = (TextView)findViewById(R.id.goods_info);
         start_place = (TextView)findViewById(R.id.start_place);
+        receiverInfo = (TextView)findViewById(R.id.end_infomation);
         choose_GoodsInf = (RelativeLayout)findViewById(R.id.choose_GoodsInf);
+        cost = (LinearLayout)findViewById(R.id.cost);
+        cost_line = (TextView)findViewById(R.id.cost_line);
     }
 
      /**
@@ -257,6 +264,8 @@ public class MainActivity extends CheckPermissionsActivity
         }
     };
 
+
+
     /**
      * 开始定位
      *
@@ -309,7 +318,7 @@ public class MainActivity extends CheckPermissionsActivity
     //地图的点击事件
 
     public void onMapClick(LatLng latLng) {
-        //点击地图上没marker 的地方，隐藏inforwindow
+        //点击地图上已经存在用户点击的marker ，则去除
 
         if(newMarker != null)
         {
@@ -318,13 +327,12 @@ public class MainActivity extends CheckPermissionsActivity
 
         if (oldMarker != null) {
             oldMarker.hideInfoWindow();
-            oldMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_normal));
         }
 
         geocodeSearch.getFromLocationAsyn(new RegeocodeQuery(new LatLonPoint(latLng.latitude,latLng.longitude),20,GeocodeSearch.GPS));
 
         newMarker = aMap.addMarker(new MarkerOptions().position(latLng).title(newMarker_title).snippet(newMarker_snippet));
-
+        start_place.setText(newMarker_snippet);
 
 
 
@@ -333,8 +341,8 @@ public class MainActivity extends CheckPermissionsActivity
     //maker的点击事件
 
     public boolean onMarkerClick(Marker marker) {
-        if (oldMarker != null) {
-            oldMarker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.marker_normal));
+        if (marker != oldMarker) {
+           return false;
         }
         oldMarker = marker;
         marker.setDraggable(true);
@@ -343,13 +351,15 @@ public class MainActivity extends CheckPermissionsActivity
     }
 
     private void addMarkerToMap(LatLng latLng, String title, String snippet) {
-        aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
+        Marker marker = aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
                 .position(latLng)
                 .draggable(true)
                 .title(title)
-                .snippet(snippet)
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_normal))
-        );
+                .snippet(snippet));
+
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.my_marker, null);
+        marker.setIcon(BitmapDescriptorFactory.fromView(view));
     }
 
     @Override
@@ -396,6 +406,12 @@ public class MainActivity extends CheckPermissionsActivity
                 intent = new Intent(MainActivity.this,GoodsInfo.class);
                 startActivityForResult(intent,REQUESTCODE_GOODSINFO);
                 break;
+            case R.id.end_infomation:
+                intent = new Intent(MainActivity.this,ReceiverInfo.class);
+                intent.putExtra("city",txt_city.getText().toString());
+                intent.putExtra("now_place",start_place.getText().toString());
+                startActivityForResult(intent,REQUESTCODE_RECEIVERINFO);
+                break;
         }
     }
 
@@ -413,6 +429,14 @@ public class MainActivity extends CheckPermissionsActivity
                     if(data != null && data.getExtras().get("goodsInfo") != null)
                     {
                         goods_info.setText(data.getExtras().get("goodsInfo").toString());
+                    }
+                    break;
+                case REQUESTCODE_RECEIVERINFO:
+                    if(data != null && data.getExtras().get("receiverInfo") != null)
+                    {
+                        receiverInfo.setText(data.getExtras().get("receiverInfo").toString());
+                        cost.setVisibility(View.VISIBLE);
+                        cost_line.setVisibility(View.VISIBLE);
                     }
                     break;
             }

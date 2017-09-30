@@ -26,4 +26,6 @@
     <color name="black_text">#333333</color>
     <color name="black_text2">#666666</color>
     <color name="buttonChecked">#ff7733</color>
+    <color name="gary">#898989</color>
+    <color name="darkgrey"> #C0C0C0</color>
 </resources>

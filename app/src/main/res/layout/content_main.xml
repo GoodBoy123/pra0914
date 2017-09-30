@@ -38,12 +38,6 @@
             android:layout_width="20dp"
             android:layout_height="20dp" />
     </RelativeLayout>
-    <com.amap.api.maps.MapView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_below="@id/choose_GoodsInf"
-        android:id="@+id/map"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
     <LinearLayout
         android:id="@+id/talk_and_find"
         android:layout_marginTop="10dp"
@@ -93,6 +87,7 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/start_end"
         android:layout_above="@id/talk_and_find"
         android:layout_centerHorizontal="true"
         android:background="@color/backWhite"
@@ -100,8 +95,38 @@
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_width="match_parent"
-        android:layout_height="101dp">
-
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/cost"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp" >
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="预计费用:"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:maxWidth="60dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="20"/>
+            <TextView
+                android:layout_width="10dp"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:text="￥"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/cost_line"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@color/lineColor" />
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp">
@@ -154,5 +179,14 @@
                 android:hint="收件人信息" />
         </RelativeLayout>
     </LinearLayout>
+    <com.amap.api.maps.MapView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_below="@id/choose_GoodsInf"
+        android:layout_above="@id/start_end"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/map"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
+
 
 </RelativeLayout>

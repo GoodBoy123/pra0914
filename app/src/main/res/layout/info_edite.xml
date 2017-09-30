@@ -48,6 +48,8 @@
         android:background="@color/backWhite"/>
 
     <TableLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/backWhite">
@@ -97,6 +99,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:background="@null"
                 android:gravity="center_vertical"
                 android:hint="起个独特的名字吧"
                 android:textSize="14sp" />
@@ -161,6 +164,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:background="@color/backWhite">
         <TableRow
             android:layout_marginBottom="5dp"
@@ -213,10 +218,11 @@
                 android:text="公司"
                 android:textSize="14sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/company"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:background="@null"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:hint="添加所在公司"
@@ -239,11 +245,12 @@
                 android:text="职业"
                 android:textSize="14sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/job"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
+                android:background="@null"
                 android:hint="添加您的职业"
                 android:paddingLeft="10dp"
                 android:textSize="14sp" />
@@ -265,12 +272,13 @@
                 android:text="个性签名"
                 android:textSize="14sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/person_des"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginLeft="20dp"
                 android:gravity="center_vertical"
+                android:background="@null"
                 android:hint="还未填写个性签名，简单介绍一下自己吧"
                 android:maxLines="1"
                 android:textSize="14sp" />

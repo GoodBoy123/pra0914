@@ -27,9 +27,11 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
     private String agentName;
     private TextView addrTV;
     private String snippet;
+    private Marker marker;
 
     @Override
     public View getInfoWindow(Marker marker) {
+        this.marker = marker;
         initData(marker);
         View view = initView();
         return view;
@@ -65,7 +67,7 @@ public class InfoWinAdapter implements AMap.InfoWindowAdapter, View.OnClickListe
         int id = v.getId();
         switch (id){
             case R.id.comfirm:  //点击确定
-                Toast.makeText(mContext, "您点击了确定", Toast.LENGTH_SHORT).show();
+                marker.hideInfoWindow();
                 break;
 
         }
