@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/backColor"
+    tools:context="yxy.pra0914.ChooseProfession">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/dep_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/backWhite">
+
+        <TextView
+            android:id="@+id/dep_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="发现"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/add"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/add"
+            android:gravity="center_vertical" />
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:background="@color/backWhite"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:id="@+id/dep_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <yxy.pra0914.MyView.CircleImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:paddingTop="@dimen/nav_header_vertical_spacing"
+                        app:outCircleWidth="5dp"
+                        app:outCircleColor="#990066"
+                        android:src="@drawable/girl"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true" />
+                    <RelativeLayout
+                        android:layout_toRightOf="@id/imageView"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                        <TextView
+                            android:id="@+id/dep_name"
+                            android:text="XXX"
+                            android:gravity="center_vertical"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+                        <Button
+                            android:layout_toRightOf="@id/dep_name"
+                            android:layout_marginLeft="10dp"
+                            android:text="快递员"
+                            android:textSize="6sp"
+                            android:layout_width="60dp"
+                            android:layout_height="30dp" />
+                        <TextView
+                            android:id="@+id/dep_time"
+                            android:layout_alignParentBottom="true"
+                            android:gravity="bottom"
+                            android:text="01-01 11:30"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp" />
+                        <TextView
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@id/dep_time"
+                            android:gravity="bottom"
+                            android:layout_alignParentBottom="true"
+                            android:text="浙江 杭州"
+                            android:textSize="12sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+                <TextView
+                    android:id="@+id/dep"
+                    android:layout_below="@id/dep_top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="XXXXXXXXXXXXXXXXXXXXXXX"
+                    android:textSize="16sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+                <LinearLayout
+                    android:id="@+id/imgs"
+                    android:layout_below="@id/dep"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:background="@drawable/girl2"
+                        android:layout_below="@id/dep"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+                    <ImageView
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/girl2"
+                        android:layout_below="@id/dep"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp" />
+                </LinearLayout>
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/imgs"
+                    android:background="@drawable/comment"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

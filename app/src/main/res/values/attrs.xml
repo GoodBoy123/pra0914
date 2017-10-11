@@ -17,4 +17,9 @@
         <attr name="pickerview_dividerColor" format="color"/>
         <attr name="pickerview_lineSpacingMultiplier" format="float"/>
     </declare-styleable>
+
+    <declare-styleable name="ScaleImageView">
+        <attr name="origin_width" format="integer"/>
+        <attr name="origin_height" format="integer"/>
+    </declare-styleable>
 </resources>

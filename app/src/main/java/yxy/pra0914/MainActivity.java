@@ -33,19 +33,32 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.RegeocodeAddress;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.bumptech.glide.Glide;
 
+import java.util.List;
+
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import yxy.pra0914.MyView.CircleImageView;
 import yxy.pra0914.MyView.HomeToolbar;
 import yxy.pra0914.adapter.InfoWinAdapter;
 
+import yxy.pra0914.api.APIWrapper;
 import yxy.pra0914.base.BaseApplication;
+import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.dto.TestUser;
+import yxy.pra0914.dto.User;
+import yxy.pra0914.utils.TLog;
 
 public class MainActivity extends CheckPermissionsActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener, AMap.OnMarkerClickListener,AMap.OnMapClickListener{
 
     private TextView txt_city,start_place,goods_info,receiverInfo,cost_line;
     private RelativeLayout choose_GoodsInf;
-    private LinearLayout cost;
+    private LinearLayout cost,find,talk;
+    private CircleImageView circleImageView;
+    private View myMakerView;
     //城市
     private static final int REQUESTCODE_FINDCITY = 6;
     //物品信息
@@ -66,6 +79,7 @@ public class MainActivity extends CheckPermissionsActivity
 
     private String newMarker_title = "暂无数据";
     private String newMarker_snippet = "暂无数据";
+    private User userToEditInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,11 +99,14 @@ public class MainActivity extends CheckPermissionsActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         //点击头像跳往个人信息的编辑
-        CircleImageView circleImageView = (CircleImageView)navigationView.inflateHeaderView(R.layout.nav_header_main).findViewById(R.id.imageView);
+        circleImageView = (CircleImageView)navigationView.inflateHeaderView(R.layout.nav_header_main).findViewById(R.id.imageView);
         circleImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent forEdite = new Intent(getApplicationContext(),InfoEdite.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("userInfo" , userToEditInfo);
+                    forEdite.putExtras(bundle);
                     startActivity(forEdite);
                 }
             });
@@ -101,7 +118,8 @@ public class MainActivity extends CheckPermissionsActivity
         receiverInfo.setOnClickListener(this);
         //选择物品信息
         choose_GoodsInf.setOnClickListener(this);
-
+        //查看动态
+        find.setOnClickListener(this);
 
         if(aMap == null)
         {
@@ -173,7 +191,34 @@ public class MainActivity extends CheckPermissionsActivity
             }
         });
         startLocation();
+        APIWrapper.getInstance().getUserInfo(String.valueOf(BaseApplication.getUserId()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<HttpResponse<User>>() {
+                    @Override
+                    public void onCompleted() {
+                        TLog.log("成功了？", "是的");
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        TLog.error("onError " + e.toString());
+                    }
+
+                    @Override
+                    public void onNext(HttpResponse<User> response) {
+                        TLog.log("succeed",response.obj.getHeadimg());
+                        userToEditInfo = response.obj;
+                        if(response.obj.getHeadimg() != null)
+                        {
+                            Glide.with(MainActivity.this)
+                                    .load(response.obj.getHeadimg())
+                                    .asBitmap()
+                                    .into(circleImageView);
+                        }
+
+                    }
+                });
     }
 
     //初始化控件
@@ -186,6 +231,9 @@ public class MainActivity extends CheckPermissionsActivity
         choose_GoodsInf = (RelativeLayout)findViewById(R.id.choose_GoodsInf);
         cost = (LinearLayout)findViewById(R.id.cost);
         cost_line = (TextView)findViewById(R.id.cost_line);
+        find = (LinearLayout)findViewById(R.id.find);
+        talk = (LinearLayout)findViewById(R.id.talk);
+
     }
 
      /**
@@ -357,9 +405,10 @@ public class MainActivity extends CheckPermissionsActivity
                 .title(title)
                 .snippet(snippet));
 
-        View view = LayoutInflater.from(this).inflate(
+        myMakerView = LayoutInflater.from(this).inflate(
                 R.layout.my_marker, null);
-        marker.setIcon(BitmapDescriptorFactory.fromView(view));
+
+        marker.setIcon(BitmapDescriptorFactory.fromView(myMakerView));
     }
 
     @Override
@@ -379,9 +428,10 @@ public class MainActivity extends CheckPermissionsActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        Intent intent;
         if (id == R.id.nav_journey) {
-            // Handle the camera action
+            intent = new Intent(MainActivity.this,Order.class);
+            startActivity(intent);
         } else if (id == R.id.nav_wallet) {
 
         } else if (id == R.id.nav_setting) {
@@ -412,6 +462,10 @@ public class MainActivity extends CheckPermissionsActivity
                 intent.putExtra("now_place",start_place.getText().toString());
                 startActivityForResult(intent,REQUESTCODE_RECEIVERINFO);
                 break;
+            case R.id.find:
+                intent = new Intent(MainActivity.this,Development.class);
+                startActivity(intent);
+                break;
         }
     }
 
@@ -436,7 +490,11 @@ public class MainActivity extends CheckPermissionsActivity
                     {
                         receiverInfo.setText(data.getExtras().get("receiverInfo").toString());
                         cost.setVisibility(View.VISIBLE);
+                        TextView xiadan = (TextView)findViewById(R.id.xiadan);
+                        xiadan.setVisibility(View.VISIBLE);
                         cost_line.setVisibility(View.VISIBLE);
+                        find.setOnClickListener(null);
+                        talk.setOnClickListener(null);
                     }
                     break;
             }

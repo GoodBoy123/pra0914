@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/pickerview_bg_topbar"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -40,7 +40,7 @@
     </RelativeLayout>
     <LinearLayout
         android:id="@+id/talk_and_find"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="22dp"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -48,11 +48,11 @@
         android:background="@color/backWhite"
         android:orientation="horizontal">
         <LinearLayout
+            android:id="@+id/talk"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="A" >
+            android:gravity="center_vertical|center_horizontal">
             <TextView
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -67,6 +67,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/find"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
@@ -187,6 +188,17 @@
         android:id="@+id/map"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
-
+    <TextView
+        android:id="@+id/xiadan"
+        android:visibility="gone"
+        android:layout_marginBottom="1dp"
+        android:text="下单"
+        android:background="@drawable/makeorder"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:textColor="@color/buttonChecked"
+        android:layout_width="80dp"
+        android:layout_height="75dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

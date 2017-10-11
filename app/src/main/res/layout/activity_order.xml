@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/backColor"
+    tools:context="yxy.pra0914.ChooseProfession">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/dep_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/backWhite">
+
+        <TextView
+            android:id="@+id/dep_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="我的订单"
+            android:textColor="@color/textBlack"
+            android:textSize="18sp" />
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="20dp"
+        android:background="@color/lineColor" />
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tl="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#eeeeee"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.flyco.tablayout.SegmentTabLayout
+                android:id="@+id/tl_3"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                tl:tl_bar_color="#ffffff"
+                tl:tl_indicator_anim_enable="true"
+                tl:tl_indicator_color="#F6CE59"
+                tl:tl_indicator_margin_bottom="2dp"
+                tl:tl_indicator_margin_left="2dp"
+                tl:tl_indicator_margin_right="2dp"
+                tl:tl_indicator_margin_top="2dp"/>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_2"
+                android:layout_width="match_parent"
+                android:layout_height="480dp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -70,7 +70,12 @@
         <activity android:name=".ChooseProfession" />
         <activity android:name=".ChooseCity" />
         <activity android:name=".GoodsInfo" />
-        <activity android:name=".ReceiverInfo"></activity>
+        <activity android:name=".ReceiverInfo" />
+        <activity android:name=".Development" />
+        <activity android:name=".Add_development" />
+        <activity android:name=".Order"></activity>
+        <activity android:name=".order.CategoryActivity"></activity>
+        <activity android:name=".order.ImageActivity"></activity>
     </application>
 
 </manifest>

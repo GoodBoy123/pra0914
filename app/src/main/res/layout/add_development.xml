@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/backColor"
+    tools:context="yxy.pra0914.ChooseProfession">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/dep_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/backWhite">
+        <TextView
+            android:id="@+id/add_dep_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/back"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center|center_vertical"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="发布动态"
+            android:textSize="18sp"
+            android:textColor="@color/textBlack" />
+        <TextView
+            android:id="@+id/save"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:text="发布"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical|center_horizontal" />
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lineColor" />
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/backWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/dep_content"
+            android:hint="今天心情怎么样?"
+            android:background="@null"
+            android:gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/dep_imgs"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:background="@color/backWhite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/add_img"
+            android:background="@drawable/add_button"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_width="50dp"
+            android:layout_height="50dp">
+            <TextView
+                android:background="@drawable/add"
+                android:layout_width="20dp"
+                android:layout_height="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:background="@color/backWhite"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+</LinearLayout>

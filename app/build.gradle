@@ -21,6 +21,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "GANK_SERVICE", '"http://gank.io/api/"'
+
     }
     buildTypes {
         release {
@@ -37,9 +40,6 @@ dependencies {
     })
 
     //快速查阅对应分组的侧边栏
-    
-
-    
 
     //高德地图
     compile 'com.android.support:appcompat-v7:25.3.1'
@@ -51,4 +51,30 @@ dependencies {
     compile 'com.amap.api:navi-3dmap:5.0.0'
     compile 'com.amap.api:location:3.3.0'
     compile 'com.amap.api:search:5.0.0'
-    testCompile 'junit:junit:4.12'}
+    testCompile 'junit:junit:4.12'
+
+    //切换tab
+    compile 'com.android.support:support-v4:25.1.1'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.0.2@aar'
+
+    //文件上传
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.0'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+
+    //图片加载
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //photoview，用于图片查看
+    compile 'com.github.chrisbanes:PhotoView:2.0.0'
+
+
+}

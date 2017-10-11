@@ -4,18 +4,17 @@ package yxy.pra0914;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -23,15 +22,32 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Calendar;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 import yxy.pra0914.MyView.CircleImageView;
 import yxy.pra0914.MyView.OptionsPickerView;
+import yxy.pra0914.api.APIWrapper;
 import yxy.pra0914.base.BaseActivity;
+import yxy.pra0914.base.BaseApplication;
 import yxy.pra0914.bean.CardBean;
+import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.dto.User;
 import yxy.pra0914.listener.CustomListener;
+import yxy.pra0914.utils.FileUtils;
+import yxy.pra0914.utils.TLog;
 
 
 public class InfoEdite extends BaseActivity implements View.OnClickListener{
@@ -59,7 +75,11 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
     private ArrayList<CardBean> genders = new ArrayList<>();
     private ArrayList<CardBean> ages = new ArrayList<>();
     private TextView gender,age,profession;
+    private EditText nickname,company,job ,person_des;
     private RelativeLayout rlt_profession;
+
+
+
 
 
     @Override
@@ -69,21 +89,50 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
         ivHead = (CircleImageView) findViewById(R.id.iv_head);
         layout_all = (LinearLayout) findViewById(R.id.layout_all);
         ivHead.setOnClickListener(this);
-        TextView text_cancel = (TextView)findViewById(R.id.cancel);
-        TextView text_done = (TextView)findViewById(R.id.done);
-        profession = (TextView)findViewById(R.id.profession);
+        TextView text_cancel = (TextView) findViewById(R.id.cancel);
+        TextView text_done = (TextView) findViewById(R.id.done);
+        profession = (TextView) findViewById(R.id.profession);
         text_cancel.setOnClickListener(this);
         text_done.setOnClickListener(this);
 
         //等数据加载完毕再初始化并显示Picker,以免还未加载完数据就显示,造成APP崩溃。
         getOptionData();
         initCustomOptionPicker();
-        gender = (TextView)findViewById(R.id.gender);
-        age = (TextView)findViewById(R.id.age);
-        rlt_profession = (RelativeLayout)findViewById(R.id.rlt_profession);
+        nickname = (EditText) findViewById(R.id.nickname);
+        gender = (TextView) findViewById(R.id.gender);
+        age = (TextView) findViewById(R.id.age);
+        company = (EditText) findViewById(R.id.company);
+        job = (EditText) findViewById(R.id.job);
+        person_des = (EditText) findViewById(R.id.person_des);
+        rlt_profession = (RelativeLayout) findViewById(R.id.rlt_profession);
         rlt_profession.setOnClickListener(this);
         age.setOnClickListener(this);
         gender.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        User user = null;
+        if (intent != null) {
+            user = (User) intent.getSerializableExtra("userInfo");
+        }
+        if(user != null)
+        {
+            if (user.getHeadimg() != null)
+            {
+                Glide.with(InfoEdite.this)
+                        .load(user.getHeadimg())
+                        .asBitmap()
+                        .into(ivHead);
+            }
+            nickname.setText(user.getNickname());
+            gender.setText(user.getGender());
+            age.setText(user.getAgeDes());
+            if(user.getProfession() != null)
+                profession.setText(user.getProfession());
+            company.setText(user.getCompany());
+            job.setText(user.getJob());
+            person_des.setText(user.getPersonDes());
+        }
+
     }
 
     private void initCustomOptionPicker() {//条件选择器初始化，自定义布局
@@ -196,6 +245,73 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
                 this.finish();
                 break;
             case R.id.done:
+                User user = new User();
+                user.setId(BaseApplication.getUserId());
+                user.setNickname(nickname.getText().toString());
+                user.setGender(gender.getText().toString());
+                user.setAgeDes(age.getText().toString());
+                user.setProfession(profession.getText().toString());
+                user.setCompany(company.getText().toString());
+                user.setJob(job.getText().toString());
+                user.setPersonDes(person_des.getText().toString());
+
+                APIWrapper.getInstance().updateuser(user)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<Map>() {
+                            @Override
+                            public void onCompleted() {
+                                TLog.log("成功了？", "是的");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                TLog.error("onError " + e.toString());
+                            }
+
+                            @Override
+                            public void onNext(Map response) {
+                                TLog.error("onNext " + response.get("msg"));
+                            }
+                        });
+                if(mBitmap != null)
+                {
+                    final File head_img = FileUtils.compressImage(mBitmap);
+                    String path = head_img.getPath();
+                    ArrayList<String> pathList = new ArrayList<>();
+                    pathList.add(path);
+                    Map<String, RequestBody> bodyMap = new HashMap<>();
+                    if(pathList.size() > 0) {
+                        for (int i = 0; i < pathList.size(); i++) {
+                            File file = new File(pathList.get(i));
+                            bodyMap.put("file"+i+"\"; filename=\""+file.getName(), RequestBody.create(MediaType.parse("image/png"),file));
+                        }
+                    }
+
+                    APIWrapper.getInstance().alterHeadImg(BaseApplication.getUserId(),bodyMap)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new Subscriber<HttpResponse<List<String>>>() {
+                                @Override
+                                public void onCompleted() {
+                                    TLog.log("成功了？", "是的");
+                                    head_img.delete();
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    TLog.error("onError " + e.toString());
+                                }
+
+                                @Override
+                                public void onNext(HttpResponse<List<String>> response) {
+                                    TLog.error("onNext " + response.msg);
+
+                                }
+                            });
+
+                }
+
                 Toast.makeText(InfoEdite.this, "done", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.gender:
@@ -371,8 +487,10 @@ public class InfoEdite extends BaseActivity implements View.OnClickListener{
             //这里也可以做文件上传
             mBitmap = bundle.getParcelable("data");
             ivHead.setImageBitmap(mBitmap);
+
         }
     }
+
 
     /**
      * 打开系统图片裁剪功能
