@@ -3,6 +3,8 @@ package yxy.pra0914.order;
 
 import java.util.List;
 
+import yxy.pra0914.dto.UserOrderDto;
+
 /**
  * Created by dasu on 2017/4/20.
  *
@@ -13,7 +15,7 @@ interface ICategoryController {
 
     String getCategoryType();
 
-    void updateGanHuo(List<GanHuoEntity> data);
+    void updateGanHuo(List<UserOrderDto> data);
 
     void onLoadFailed();
 

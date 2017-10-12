@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.Toast;
 
 
 import java.util.ArrayList;
@@ -16,6 +16,8 @@ import java.util.List;
 import yxy.pra0914.MyView.recyclerview.LoadMoreRecyclerView;
 import yxy.pra0914.MyView.recyclerview.OnPullUpRefreshListener;
 import yxy.pra0914.R;
+import yxy.pra0914.dto.UserOrderDto;
+import yxy.pra0914.utils.ToastUtil;
 import yxy.pra0914.utils.ToastUtils;
 
 /**
@@ -67,7 +69,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
         return view;
     }
 
-    private List<GanHuoEntity> mGanHuoList = new ArrayList<>();
+    private List<UserOrderDto> mUserOrderList = new ArrayList<>();
 
     private LoadMoreRecyclerView mCategoryRv;
     private CategoryRecycleAdapter mRecycleAdapter;
@@ -75,7 +77,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
     private void initView(View view) {
         mCategoryRv = (LoadMoreRecyclerView) view.findViewById(R.id.rv_category_content);
         mCategoryRv.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecycleAdapter = new CategoryRecycleAdapter(mGanHuoList);
+        mRecycleAdapter = new CategoryRecycleAdapter(mUserOrderList);
         mRecycleAdapter.setOnItemClickListener(onItemClick());
         mCategoryRv.setAdapter(mRecycleAdapter);
         mCategoryRv.setOnPullUpRefreshListener(onPullUpRefresh());
@@ -96,15 +98,16 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
         };
     }
 
-    private OnItemClickListener<GanHuoEntity> onItemClick() {
-        return new OnItemClickListener<GanHuoEntity>() {
+    private OnItemClickListener<UserOrderDto> onItemClick() {
+        return new OnItemClickListener<UserOrderDto>() {
             @Override
             public void onImageClick(List<String> imgUrls) {
                 ImageActivity.startActivity(mContext, 0, (ArrayList<String>) imgUrls);
             }
 
             @Override
-            public void onItemClick(GanHuoEntity data) {
+            public void onItemClick(UserOrderDto data) {
+                Toast.makeText(getContext(), "点击了一个item",Toast.LENGTH_SHORT).show();
 //                WebViewActivity.startActivity(mContext, data.getUrl(), data.getDesc());
             }
         };
@@ -124,32 +127,32 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
     }
 
     @Override
-    public void updateGanHuo(List<GanHuoEntity> data) {
+    public void updateGanHuo(List<UserOrderDto> data) {
         mRefreshState = STATE_REFRESH_FINISH;
         mRefreshListener.onRefreshFinish();
         if (data == null || data.size() == 0) {
             return;
         }
-        if (mGanHuoList == null) {
-            mGanHuoList = new ArrayList<>();
+        if (mUserOrderList == null) {
+            mUserOrderList = new ArrayList<>();
         }
-        mGanHuoList.clear();
-        mGanHuoList.addAll(data);
+        mUserOrderList.clear();
+        mUserOrderList.addAll(data);
         if (isFragmentVisible()) {
             notifyDataSetChanged();
         }
     }
 
-    public void refreshData(List<GanHuoEntity> data) {
+    public void refreshData(List<UserOrderDto> data) {
         mRefreshState = STATE_REFRESH_FINISH;
         mRefreshListener.onRefreshFinish();
-        if (mGanHuoList == null) {
-            mGanHuoList = new ArrayList<>();
+        if (mUserOrderList == null) {
+            mUserOrderList = new ArrayList<>();
         }
-        int oldSize = mGanHuoList.size();
-        mGanHuoList.addAll(data);
+        int oldSize = mUserOrderList.size();
+        mUserOrderList.addAll(data);
         mRecycleAdapter.notifyItemRangeInserted(oldSize, data.size());
-        ToastUtils.show(mContext, "加载成功，新增" + data.size() + "项干货哦！");
+        ToastUtils.show(mContext, "加载成功，新增" + data.size() + "项订单数据！");
     }
 
     @Override

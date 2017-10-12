@@ -22,7 +22,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "GANK_SERVICE", '"http://gank.io/api/"'
+        buildConfigField "String", "GANK_SERVICE", '"http://192.168.1.101:8080/express/"'
 
     }
     buildTypes {

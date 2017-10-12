@@ -11,40 +11,40 @@ import java.util.List;
 
 public class GankResEntity {
 
-    private List<String> category;
-    private boolean error;
-    private Object results;
+    private String msg;
+    private boolean success;
+    private Object data;
 
-    public List<String> getCategory() {
-        return category;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setCategory(List<String> category) {
-        this.category = category;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public boolean isError() {
-        return error;
+        return success;
     }
 
     public void setError(boolean error) {
-        this.error = error;
+        this.success = error;
     }
 
     public Object getResults() {
-        return results;
+        return data;
     }
 
     public void setResults(Object results) {
-        this.results = results;
+        this.data = results;
     }
 
     @Override
     public String toString() {
         return "GankResEntity{" +
-                "category=" + category +
-                ", error=" + error +
-                ", results='" + results + '\'' +
+                "msg=" + msg +
+                ", error=" + success +
+                ", results='" + data + '\'' +
                 '}';
     }
 }

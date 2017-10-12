@@ -18,7 +18,7 @@ import yxy.pra0914.base.BaseActivity;
  * 分类浏览的主界面，该类只负责管理多个Fragment，具体的ui和mode交互交由相应的Fragment和controller负责
  */
 
-public class CategoryActivity extends BaseActivity implements OnSwipeRefreshListener {
+public class UserOrderActivity extends BaseActivity implements OnSwipeRefreshListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

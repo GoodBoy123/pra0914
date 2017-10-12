@@ -7,6 +7,8 @@ import android.text.TextUtils;
 
 import java.util.List;
 
+import yxy.pra0914.base.BaseApplication;
+import yxy.pra0914.dto.UserOrderDto;
 import yxy.pra0914.utils.LogUtils;
 
 /**
@@ -39,9 +41,9 @@ public class CategoryFController {
 
     public void loadBaseData() {
         mCategoryPage = 1;
-        GankController.getSpecifyGanHuo(mCategoryType, 1, new RetrofitListener<List<GanHuoEntity>>() {
+        GankController.getSpecifyGanHuo(BaseApplication.getUserId() , mCategoryType, 1, new RetrofitListener<List<UserOrderDto>>() {
             @Override
-            public void onSuccess(List<GanHuoEntity> data) {
+            public void onSuccess(List<UserOrderDto> data) {
                 mCategoryFragment.updateGanHuo(data);
             }
 
@@ -63,9 +65,9 @@ public class CategoryFController {
             return;
         }
         mRefreshState = STATE_REFRESHING;
-        GankController.getSpecifyGanHuo(mCategoryType, ++mCategoryPage, new RetrofitListener<List<GanHuoEntity>>() {
+        GankController.getSpecifyGanHuo(BaseApplication.getUserId(),mCategoryType, ++mCategoryPage, new RetrofitListener<List<UserOrderDto>>() {
             @Override
-            public void onSuccess(List<GanHuoEntity> data) {
+            public void onSuccess(List<UserOrderDto> data) {
                 mRefreshState = STATE_REFRESH_END;
                 if (data != null && data.size() > 0) {
                     mCategoryFragment.refreshData(data);

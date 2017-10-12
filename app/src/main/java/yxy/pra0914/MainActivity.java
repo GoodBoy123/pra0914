@@ -49,6 +49,7 @@ import yxy.pra0914.base.BaseApplication;
 import yxy.pra0914.bean.HttpResponse;
 import yxy.pra0914.dto.TestUser;
 import yxy.pra0914.dto.User;
+import yxy.pra0914.order.UserOrderActivity;
 import yxy.pra0914.utils.TLog;
 
 public class MainActivity extends CheckPermissionsActivity
@@ -430,7 +431,7 @@ public class MainActivity extends CheckPermissionsActivity
         int id = item.getItemId();
         Intent intent;
         if (id == R.id.nav_journey) {
-            intent = new Intent(MainActivity.this,Order.class);
+            intent = new Intent(MainActivity.this,UserOrderActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_wallet) {
 
