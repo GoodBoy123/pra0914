@@ -20,24 +20,6 @@ public class User implements Serializable{
 	private String ageDes;
 	private Date regtime;
 
-	// 用户保存的快递员
-	private Set<User_express> contacts_express;
-	
-	// 用户保存的联系人
-	private Set<User_user> contacts_user2;
-	
-	// 已保存该用户为联系人的用户
-	private Set<User_user> contacts_user1;
-	
-	// 用户订单
-	private Set<Order> orders;
-	
-	// 用户动态
-	private Set<Development> developments;
-	
-	// 用户评论
-	private Set<Comment> comments;
-
 	public int getId() {
 		return id;
 	}
@@ -134,51 +116,5 @@ public class User implements Serializable{
 		this.regtime = regtime;
 	}
 
-	public Set<User_express> getContacts_express() {
-		return contacts_express;
-	}
 
-	public void setContacts_express(Set<User_express> contacts_express) {
-		this.contacts_express = contacts_express;
-	}
-
-	public Set<User_user> getContacts_user2() {
-		return contacts_user2;
-	}
-
-	public void setContacts_user2(Set<User_user> contacts_user2) {
-		this.contacts_user2 = contacts_user2;
-	}
-
-	public Set<User_user> getContacts_user1() {
-		return contacts_user1;
-	}
-
-	public void setContacts_user1(Set<User_user> contacts_user1) {
-		this.contacts_user1 = contacts_user1;
-	}
-
-	public Set<Order> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<Order> orders) {
-		this.orders = orders;
-	}
-
-	public Set<Development> getDevelopments() {
-		return developments;
-	}
-
-	public void setDevelopments(Set<Development> developments) {
-		this.developments = developments;
-	}
-
-	public Set<Comment> getComments() {
-		return comments;
-	}
-
-	public void setComments(Set<Comment> comments) {
-		this.comments = comments;
-	}
 }

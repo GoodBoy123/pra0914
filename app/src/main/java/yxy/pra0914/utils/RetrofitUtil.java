@@ -16,7 +16,7 @@ public class RetrofitUtil {
     /**
      * 服务器地址
      */
-    private static final String API_HOST = "http://192.168.1.101:8080/PictureManage/";
+    private static final String API_HOST = "http://192.168.1.101:8080/express/";
 
     private static Retrofit mRetrofit;
     private static APIService mAPIService;

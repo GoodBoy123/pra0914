@@ -24,7 +24,7 @@ import yxy.pra0914.dto.User;
  * @time 16/8/18 21:46
  */
 public interface APIService {
-    //服务器端获取user,可以这样request.getParameter("user")
+    //服务器端获取userId,可以这样request.getParameter("userId")
     @Multipart
     @POST("picture/alterHeadImg.html")
     Observable<HttpResponse<List<String>>> alterHeadImg(@Part("userId") int userId, @PartMap Map<String, RequestBody> params);
@@ -39,6 +39,6 @@ public interface APIService {
 
     //普通用户发布动态，文字加多张图片
     @Multipart
-    @POST("usermanage/publicDep.html")
-    Observable<Map> publicDep(@Part("userId") int userId ,@Part("content") String content , @PartMap Map<String, RequestBody> params);
+    @POST("depManage/addDep.html")
+    Observable<Map> addDep(@Part("id") int id ,@Part("usertype") int usertype , @Part("content") String content , @PartMap Map<String, RequestBody> params);
 }

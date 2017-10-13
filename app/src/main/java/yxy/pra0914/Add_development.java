@@ -78,25 +78,24 @@ public class Add_development extends BaseActivity implements View.OnClickListene
                     Toast.makeText(Add_development.this, "请填写内容~", Toast.LENGTH_SHORT).show();
                     break;
                 }
-
-                if(listBitmaps.size() != 0)
-                {
+                Map<String, RequestBody> bodyMap = new HashMap<>();
+                if(listBitmaps.size() != 0) {
                     ArrayList<String> pathList = new ArrayList<>();
-                    for(Bitmap mBitmap : listBitmaps) {
+                    for (Bitmap mBitmap : listBitmaps) {
                         File dep_img = FileUtils.compressImage(mBitmap);
                         String path = dep_img.getPath();
                         pathList.add(path);
                         tmpFiles.add(dep_img);
                     }
-                        Map<String, RequestBody> bodyMap = new HashMap<>();
-                        if(pathList.size() > 0) {
-                            for (int i = 0; i < pathList.size(); i++) {
-                                File file = new File(pathList.get(i));
-                                bodyMap.put("file"+i+"\"; filename=\""+file.getName(), RequestBody.create(MediaType.parse("image/png"),file));
-                            }
-                        }
 
-                        APIWrapper.getInstance().publicDep(BaseApplication.getUserId(),dep_content.getText().toString(),bodyMap)
+                    if (pathList.size() > 0) {
+                        for (int i = 0; i < pathList.size(); i++) {
+                            File file = new File(pathList.get(i));
+                            bodyMap.put("file" + i + "\"; filename=\"" + file.getName(), RequestBody.create(MediaType.parse("image/png"), file));
+                        }
+                    }
+                }
+                        APIWrapper.getInstance().addDep(BaseApplication.getUserId(),1,dep_content.getText().toString(),bodyMap)
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Subscriber<Map>() {
@@ -118,15 +117,10 @@ public class Add_development extends BaseActivity implements View.OnClickListene
 
                                     }
                                 });
-                    }
-
-
-
-
 
 
                 Toast.makeText(Add_development.this, "发布成功！", Toast.LENGTH_SHORT).show();
-                finish();
+//                finish();
                 break;
         }
     }

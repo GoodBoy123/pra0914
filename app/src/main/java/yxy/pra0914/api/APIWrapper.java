@@ -38,7 +38,7 @@ public class APIWrapper extends RetrofitUtil {
         return getAPIService().updateuser(user);
     }
 
-    public Observable<Map> publicDep(int userId,String content , Map<String,RequestBody> params) {
-        return getAPIService().publicDep(userId ,content , params);
+    public Observable<Map> addDep(int userId,int usertype , String content , Map<String,RequestBody> params) {
+        return getAPIService().addDep(userId ,usertype , content , params);
     }
 }
