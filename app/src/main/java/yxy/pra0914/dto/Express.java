@@ -26,8 +26,6 @@ public class Express {
 	private Set<User_express> users;
 	// 快递员参与的订单
 	private Set<Order> orders;
-	// 快递员动态
-	private Set<Development> developments;
 	// 快递员评论
 	private Set<Comment> comments;
 
@@ -175,13 +173,6 @@ public class Express {
 		this.users = users;
 	}
 
-	public Set<Development> getDevelopments() {
-		return developments;
-	}
-
-	public void setDevelopments(Set<Development> developments) {
-		this.developments = developments;
-	}
 
 	public Set<Comment> getComments() {
 		return comments;

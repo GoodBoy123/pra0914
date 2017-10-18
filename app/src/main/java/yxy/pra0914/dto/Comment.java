@@ -11,7 +11,6 @@ public class Comment {
 	private String content;
 	private Date commentTime;
 	private int usertype;
-	private Development development;
 	private User user;
 	private Express express;
 
@@ -45,14 +44,6 @@ public class Comment {
 
 	public void setUsertype(int usertype) {
 		this.usertype = usertype;
-	}
-
-	public Development getDevelopment() {
-		return development;
-	}
-
-	public void setDevelopment(Development development) {
-		this.development = development;
 	}
 
 	public User getUser() {

@@ -222,9 +222,9 @@ public class GoodsInfo extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.comfirm:
                 Intent i=new Intent();
-                //服务类型/物品类型/物品重量/物品价值
+                //服务类型/物品类型/物品价值/物品重量
                 String str = serv_type.getText() + "/" + goods_type.getText() + "/" + goods_name.getText() + "/"
-                        + weight.getText() + "/" + value.getText();
+                        + value.getText() + "/" +weight.getText()  ;
                 Toast.makeText(GoodsInfo.this, str, Toast.LENGTH_SHORT).show();
                 i.putExtra("goodsInfo", str);
                 setResult(RESULT_OK,i);

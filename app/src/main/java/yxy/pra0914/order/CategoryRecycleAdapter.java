@@ -8,14 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-
-import java.text.DateFormat;
-
-
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 

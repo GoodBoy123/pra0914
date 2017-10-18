@@ -8,6 +8,7 @@ import java.util.Map;
 import okhttp3.RequestBody;
 import rx.Observable;
 import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.dto.OrderDetailDto;
 import yxy.pra0914.dto.User;
 import yxy.pra0914.utils.RetrofitUtil;
 
@@ -41,4 +42,9 @@ public class APIWrapper extends RetrofitUtil {
     public Observable<Map> addDep(int userId,int usertype , String content , Map<String,RequestBody> params) {
         return getAPIService().addDep(userId ,usertype , content , params);
     }
+
+    public Observable<HttpResponse<OrderDetailDto>> getOrderDetail(String oid) {
+        return getAPIService().getOrderDetail(oid);
+    }
+
 }

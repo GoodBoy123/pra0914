@@ -11,6 +11,8 @@ public class DevelopmentDto {
 
 
 	private int id;
+	private String headimg;
+	private String nickname;
 	private String content;
 	private String releaseTime;
 	private int uid;
@@ -18,6 +20,7 @@ public class DevelopmentDto {
 	private int usertype;
 	//动态图片,可能有多张
 	private List<String> imgs;
+	private String city;
 	private int status;
 
 	public int getId() {
@@ -26,6 +29,22 @@ public class DevelopmentDto {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getHeadimg() {
+		return headimg;
+	}
+
+	public void setHeadimg(String headimg) {
+		this.headimg = headimg;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getContent() {
@@ -74,6 +93,14 @@ public class DevelopmentDto {
 
 	public void setImgs(List<String> imgs) {
 		this.imgs = imgs;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	public int getStatus() {

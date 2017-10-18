@@ -14,6 +14,7 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import rx.Observable;
 import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.dto.OrderDetailDto;
 import yxy.pra0914.dto.TestUser;
 import yxy.pra0914.dto.User;
 
@@ -41,4 +42,8 @@ public interface APIService {
     @Multipart
     @POST("depManage/addDep.html")
     Observable<Map> addDep(@Part("id") int id ,@Part("usertype") int usertype , @Part("content") String content , @PartMap Map<String, RequestBody> params);
+
+    //获取订单信息
+    @GET("userOrder/getOrderDetail/{oid}.html")
+    Observable<HttpResponse<OrderDetailDto>> getOrderDetail(@Path("oid") String oid);
 }

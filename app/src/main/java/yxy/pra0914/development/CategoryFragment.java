@@ -1,7 +1,6 @@
-package yxy.pra0914.order;
+package yxy.pra0914.development;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,16 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import yxy.pra0914.MyView.recyclerview.LoadMoreRecyclerView;
 import yxy.pra0914.MyView.recyclerview.OnPullUpRefreshListener;
-import yxy.pra0914.OrderDetail;
-import yxy.pra0914.OrderDetailDone;
 import yxy.pra0914.R;
-import yxy.pra0914.dto.UserOrderDto;
+
+import yxy.pra0914.dto.DevelopmentDto;
 import yxy.pra0914.utils.ToastUtils;
 
 /**
@@ -71,7 +68,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
         return view;
     }
 
-    private List<UserOrderDto> mUserOrderList = new ArrayList<>();
+    private List<DevelopmentDto> mUserOrderList = new ArrayList<>();
 
     private LoadMoreRecyclerView mCategoryRv;
     private CategoryRecycleAdapter mRecycleAdapter;
@@ -100,34 +97,16 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
         };
     }
 
-    private OnItemClickListener<UserOrderDto> onItemClick() {
-        return new OnItemClickListener<UserOrderDto>() {
+    private OnItemClickListener<DevelopmentDto> onItemClick() {
+        return new OnItemClickListener<DevelopmentDto>() {
             @Override
             public void onImageClick(List<String> imgUrls) {
                 ImageActivity.startActivity(mContext, 0, (ArrayList<String>) imgUrls);
             }
 
             @Override
-            public void onItemClick(UserOrderDto data) {
-                Intent intent;
-                ToastUtils.show(mContext, "" + data.getStatus()+"   id:" + data.getId());
-                if(data.getStatus() == 0)
-                {
-                    intent = new Intent(getActivity(), OrderDetail.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("oid",data.getId());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-                if(data.getStatus() == 2)
-                {
-                    intent = new Intent(getActivity(), OrderDetailDone.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("oid",data.getId());
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-
+            public void onItemClick(DevelopmentDto data) {
+                Toast.makeText(getContext(), data.getId() + ":" + data.getReleaseTime(),Toast.LENGTH_SHORT).show();
 //                WebViewActivity.startActivity(mContext, data.getUrl(), data.getDesc());
             }
         };
@@ -147,7 +126,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
     }
 
     @Override
-    public void updateGanHuo(List<UserOrderDto> data) {
+    public void updateGanHuo(List<DevelopmentDto> data) {
         mRefreshState = STATE_REFRESH_FINISH;
         mRefreshListener.onRefreshFinish();
         if (data == null || data.size() == 0) {
@@ -163,7 +142,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
         }
     }
 
-    public void refreshData(List<UserOrderDto> data) {
+    public void refreshData(List<DevelopmentDto> data) {
         mRefreshState = STATE_REFRESH_FINISH;
         mRefreshListener.onRefreshFinish();
         if (mUserOrderList == null) {
@@ -179,7 +158,7 @@ public class CategoryFragment extends BaseFragment implements ICategoryControlle
     public void onLoadFailed() {
         mRefreshState = STATE_REFRESH_FINISH;
         mRefreshListener.onRefreshFinish();
-        ToastUtils.show(mContext, "数据加载失败，请重试");
+        ToastUtils.show(mContext, "没有更多数据了");
     }
 
     /**

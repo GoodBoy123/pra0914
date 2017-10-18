@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:background="@color/backWhite"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:id="@+id/dep_top"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <yxy.pra0914.MyView.CircleImageView
+                android:id="@+id/imageView"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:paddingTop="@dimen/nav_header_vertical_spacing"
+                android:src="@drawable/girl"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+            <RelativeLayout
+                android:layout_toRightOf="@id/imageView"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:id="@+id/dep_nickname"
+                    android:text="还未取昵称"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:id="@+id/dep_time"
+                    android:layout_below="@id/dep_nickname"
+                    android:gravity="center_vertical"
+                    android:text="00-00 00:00"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+                <TextView
+                    android:id="@+id/dep_city"
+                    android:layout_below="@id/dep_time"
+                    android:gravity="center_vertical"
+                    android:layout_alignParentBottom="true"
+                    android:text="来自一个美丽的城市"
+                    android:textSize="12sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp" />
+            </RelativeLayout>
+        </RelativeLayout>
+        <TextView
+            android:id="@+id/dep_content"
+            android:layout_below="@id/dep_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="动态内容"
+            android:textSize="16sp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:maxLines="3"
+            android:ellipsize="end"/>
+        <LinearLayout
+            android:id="@+id/imgs"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dep_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp">
+
+                <yxy.pra0914.MyView.ScaleImageView
+                    android:id="@+id/iv_category_demo"
+                    android:layout_width="120dp"
+                    android:layout_height="250dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_dep_img_count"
+                    android:layout_width="30dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:background="@drawable/bg_round_transparent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="90dp"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:text="0张"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/comment"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@id/imgs"
+            android:background="@drawable/comment"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+    </RelativeLayout>
+
+</LinearLayout>
