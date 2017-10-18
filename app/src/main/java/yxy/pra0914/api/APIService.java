@@ -5,8 +5,11 @@ package yxy.pra0914.api;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.Request;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -14,6 +17,7 @@ import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import rx.Observable;
 import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.dto.MainOrderDto;
 import yxy.pra0914.dto.OrderDetailDto;
 import yxy.pra0914.dto.TestUser;
 import yxy.pra0914.dto.User;
@@ -46,4 +50,9 @@ public interface APIService {
     //获取订单信息
     @GET("userOrder/getOrderDetail/{oid}.html")
     Observable<HttpResponse<OrderDetailDto>> getOrderDetail(@Path("oid") String oid);
+
+    //下单
+    @Headers({"Content-type:application/json;charset=UTF-8"})
+    @POST("userOrder/doOrder.html")
+    Observable<HttpResponse<String>> doOrder(@Body MainOrderDto mainOrderDto);
 }

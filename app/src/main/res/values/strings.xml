@@ -157,6 +157,6 @@
 	    18	飞行模式下关闭了WIFI开关，请关闭飞行模式或者打开WIFI开关\n
 	    19	没有检查到SIM卡，并且关闭了WIFI开关，请打开WIFI开关或者插入SIM卡\n
 	</string>
-    <string name="defaultGoodsInf">默认(寄件/其他/无/1斤/10元)</string>
+    <string name="defaultGoodsInf">寄件/其他/无/10元/1斤</string>
     <string name="no_network_tip_text">网络不给力，请检查网络设置。</string>
 </resources>

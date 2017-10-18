@@ -47,17 +47,20 @@ import yxy.pra0914.adapter.InfoWinAdapter;
 import yxy.pra0914.api.APIWrapper;
 import yxy.pra0914.base.BaseApplication;
 import yxy.pra0914.bean.HttpResponse;
+import yxy.pra0914.development.DevelopmentActivity;
+import yxy.pra0914.dto.MainOrderDto;
 import yxy.pra0914.dto.TestUser;
 import yxy.pra0914.dto.User;
 import yxy.pra0914.order.UserOrderActivity;
 import yxy.pra0914.utils.TLog;
+import yxy.pra0914.utils.ToastUtil;
 
 public class MainActivity extends CheckPermissionsActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener, AMap.OnMarkerClickListener,AMap.OnMapClickListener{
 
-    private TextView txt_city,start_place,goods_info,receiverInfo,cost_line;
+    private TextView txt_city,start_place,goods_info,receiverInfo,cost_line , cost , end_infomation;
     private RelativeLayout choose_GoodsInf;
-    private LinearLayout cost,find,talk;
+    private LinearLayout lay_cost,find,talk;
     private CircleImageView circleImageView;
     private View myMakerView;
     //城市
@@ -230,8 +233,10 @@ public class MainActivity extends CheckPermissionsActivity
         start_place = (TextView)findViewById(R.id.start_place);
         receiverInfo = (TextView)findViewById(R.id.end_infomation);
         choose_GoodsInf = (RelativeLayout)findViewById(R.id.choose_GoodsInf);
-        cost = (LinearLayout)findViewById(R.id.cost);
+        lay_cost = (LinearLayout)findViewById(R.id.lay_cost);
         cost_line = (TextView)findViewById(R.id.cost_line);
+        cost = (TextView)findViewById(R.id.cost);
+        end_infomation = (TextView)findViewById(R.id.end_infomation) ;
         find = (LinearLayout)findViewById(R.id.find);
         talk = (LinearLayout)findViewById(R.id.talk);
 
@@ -464,7 +469,7 @@ public class MainActivity extends CheckPermissionsActivity
                 startActivityForResult(intent,REQUESTCODE_RECEIVERINFO);
                 break;
             case R.id.find:
-                intent = new Intent(MainActivity.this,Development.class);
+                intent = new Intent(MainActivity.this,DevelopmentActivity.class);
                 startActivity(intent);
                 break;
         }
@@ -490,12 +495,51 @@ public class MainActivity extends CheckPermissionsActivity
                     if(data != null && data.getExtras().get("receiverInfo") != null)
                     {
                         receiverInfo.setText(data.getExtras().get("receiverInfo").toString());
-                        cost.setVisibility(View.VISIBLE);
-                        TextView xiadan = (TextView)findViewById(R.id.xiadan);
+                        lay_cost.setVisibility(View.VISIBLE);
+                        final TextView xiadan = (TextView)findViewById(R.id.xiadan);
                         xiadan.setVisibility(View.VISIBLE);
                         cost_line.setVisibility(View.VISIBLE);
                         find.setOnClickListener(null);
                         talk.setOnClickListener(null);
+
+                        xiadan.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                MainOrderDto mainOrderDto = new MainOrderDto();
+                                mainOrderDto.setUid(BaseApplication.getUserId());
+                                mainOrderDto.setGoods(goods_info.getText().toString());
+                                mainOrderDto.setCost(Double.parseDouble(cost.getText().toString()));
+                                mainOrderDto.setSendaddress(start_place.getText().toString());
+                                mainOrderDto.setRecieveInfo(end_infomation.getText().toString());
+                                APIWrapper.getInstance().doOrder(mainOrderDto)
+                                        .subscribeOn(Schedulers.io())
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribe(new Subscriber<HttpResponse<String>>() {
+                                            @Override
+                                            public void onCompleted() {
+                                                TLog.log("成功了？", "是的");
+                                            }
+                                            @Override
+                                            public void onError(Throwable e) {
+                                                TLog.error("onError " + e.toString());
+                                            }
+                                            @Override
+                                            public void onNext(HttpResponse<String> response) {
+                                                TLog.error("onNext " + response.msg);
+                                                receiverInfo.setText("");
+                                                lay_cost.setVisibility(View.GONE);
+                                                xiadan.setVisibility(View.GONE);
+                                                cost_line.setVisibility(View.GONE);
+                                                find.setOnClickListener(MainActivity.this);
+                                                talk.setOnClickListener(MainActivity.this);
+                                                ToastUtil.show(BaseApplication.getIntance(),response.msg);
+
+
+                                            }
+                                        });
+                            }
+                        });
+
                     }
                     break;
             }

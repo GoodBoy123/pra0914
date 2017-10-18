@@ -299,9 +299,8 @@ public class ReceiverInfo extends FragmentActivity implements
                 {
                     Intent i=new Intent();
                     //服务类型/物品类型/物品重量/物品价值
-                    String str = receiver_name.getText().toString() + "/" + receiver_phone.getText().toString() + "/" +AMapUtil.checkEditText(autoCompleteTextView) + "/"
+                    String str = receiver_name.getText().toString() + "/" + receiver_phone.getText().toString() + "/" +AMapUtil.checkEditText(autoCompleteTextView)
                             + address_detail.getText().toString();
-                    Toast.makeText(ReceiverInfo.this, str, Toast.LENGTH_SHORT).show();
                     i.putExtra("receiver_name", receiver_name.getText().toString());
                     i.putExtra("receiver_phone", receiver_phone.getText().toString());
                     i.putExtra("keyWord", AMapUtil.checkEditText(autoCompleteTextView));

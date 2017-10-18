@@ -57,7 +57,7 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity
-            android:name=".order.UserOrderActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -73,7 +73,7 @@
         <activity android:name=".ReceiverInfo" />
         <activity android:name=".Development" />
         <activity android:name=".development.DevelopmentActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".order.UserOrderActivity" />
         <activity android:name=".Add_development" />
         <activity android:name=".development.ImageActivity" />
         <activity android:name=".OrderDetail" />
